@@ -317,7 +317,7 @@ import { Chart, registerables } from 'chart.js';
 import { parse } from 'date-fns';
 import 'chartjs-adapter-date-fns';
 Chart.register(...registerables);
-const BASE_URL = process.env.BASE_URL;
+// const BASE_URL = process.env.BASE_URL;
 interface GraphDataEntry {
   Timestamp: string;
   profit: number;
@@ -328,7 +328,7 @@ const GraphComponent = () => {
   const [minTimestamp, setMinTimestamp] = useState<number | null>(null);
 
   useEffect(() => {
-    axios.get<GraphDataEntry[]>(`${BASE_URL}/api/dataset`)
+    axios.get<GraphDataEntry[]>('http://localhost:5000/api/dataset')
       .then(response => {
         const timestamps = response.data.map(entry => parse(entry.Timestamp, 'dd-MM-yyyy HH:mm', new Date()).getTime());
         const minTimestamp = Math.min(...timestamps);
